@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Beholder Basic Example</title>
-    <script src="https://rawgit.com/project-beholder/Beholder-standalone/master/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/project-beholder/Beholder-standalone@master/index.js"></script>
     <style>
       
     </style>
@@ -35,8 +35,12 @@
     </div>
 
     <script>
+      // you can find the source for this project here https://github.com/project-beholder/Beholder-standalone
       // initialize detection stuff and hack in to detection loop
+      // init function will start all the detection in the background and use provided canvas id as the detection pane
       beholder.init('#detection-canvas');
+      
+      // Callbacks added here will get updated every frame with the current detected markers and time between frames
       beholder.addUpdateCallback((markers, deltaTime) => {
         // console.log('num markers: ', markers.length, deltaTime);
 
