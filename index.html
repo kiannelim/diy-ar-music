@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="Peter Gyory">
+    <meta name="theme-color" content="#B12A34">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Beholder Basic Example</title>
-    <script src="https://cdn.jsdelivr.net/gh/project-beholder/Beholder-standalone@master/index.js"></script>
+    <script src="../index.js"></script>
+    <!-- import the webpage's stylesheet -->
+    <!-- <link rel="stylesheet" href="./style.css"> -->
     <style>
       
     </style>
@@ -16,6 +18,12 @@
     <canvas id="detection-canvas"></canvas>
 
     <div id="parametersMenu">
+      <div class="parameterItem">
+        <span>Camera Feed ID</span>
+        <select name="CAMERA_INDEX" id="CAMERA_INDEX">
+          <option value="0" label="0" selected></option>
+        </select>
+      </div>
       <div class="parameterItem">
         <span>Min Marker Distance</span>
         <input id="MIN_MARKER_DISTANCE" type="number" name="MIN_MARKER_DISTANCE" min="1" max="50" value="10" step="1">
@@ -35,14 +43,12 @@
     </div>
 
     <script>
-      // you can find the source for this project here https://github.com/project-beholder/Beholder-standalone
       // initialize detection stuff and hack in to detection loop
-      // init function will start all the detection in the background and use provided canvas id as the detection pane
       beholder.init('#detection-canvas');
-      
-      // Callbacks added here will get updated every frame with the current detected markers and time between frames
-      beholder.addUpdateCallback((markers, deltaTime) => {
+
+      function update() {
         // console.log('num markers: ', markers.length, deltaTime);
+        const markers = beholder.detect();
 
         // draw markers here
         const ctx = beholder.ctx;
@@ -72,7 +78,9 @@
           ctx.strokeStyle = "yellow";
           ctx.strokeRect(center.x - 2, center.y - 2, 4, 4);
         });
-      });
+
+        requestAnimationFrame(update);
+      }
 
       // Detection param field changes
       document.querySelector('#MIN_MARKER_DISTANCE').addEventListener('change', (e) => {
@@ -87,6 +95,29 @@
       document.querySelector('#SIZE_AFTER_PERSPECTIVE_REMOVAL').addEventListener('change', (e) => {
         beholder.setParam('SIZE_AFTER_PERSPECTIVE_REMOVAL', e.target.value)
       });
+
+      const cameraSelect = document.querySelector('#CAMERA_INDEX')
+      beholder.getCameraFeeds().then((feeds) => {
+        cameraSelect.innerHTML = '';
+        
+        feeds.forEach((f, i) => {
+          if (f.kind === 'videoinput') {
+            const opt = document.createElement('option');
+            opt.value = f.deviceId;
+            opt.label = f.label ? f.label : i;
+            if (i === 0) opt.selected = true;
+            cameraSelect.appendChild(opt);
+          }
+        });
+
+        cameraSelect.addEventListener('change', (e) => {
+          console.log(e.target.value)
+          beholder.setCamera(e.target.value);
+        });
+      });
+      
+
+      update();
     </script>
   </body>
 </html>
