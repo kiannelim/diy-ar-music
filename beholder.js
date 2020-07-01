@@ -1,8 +1,11 @@
+const VIDEO_WIDTH = 720;
+
 const CV = {};
 const AR = {};
 const beholder = { updateCallbacks: [] };
 let detectionParams = {
   CAMERA_INFO: {},
+  VIDEO_SIZE: {width: {exact: 640}, height: {exact: 480}},
   MIN_MARKER_DISTANCE: 10,
   MIN_MARKER_PERIMETER: 0.2,
   MAX_MARKER_PERIMETER: 0.8,
@@ -65,7 +68,7 @@ beholder.startCameraFeed = function startCameraFeed() {
   }
   
   navigator.mediaDevices
-    .getUserMedia({ video: { width: 480, height: 360, deviceId: detectionParams.CAMERA_INFO } })
+    .getUserMedia({ video: { width: detectionParams.VIDEO_SIZE.width, height: 540, deviceId: detectionParams.CAMERA_INFO } })
     .then((stream) => {
       if ("srcObject" in this.video) {
         this.video.srcObject = stream;
