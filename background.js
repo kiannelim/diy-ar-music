@@ -128,11 +128,6 @@ window.onload = function() {
     document.querySelector("#app").classList.toggle("active");
     document.querySelector("#detectionDiv").classList.toggle("active");
     
-    if (!appMode) {
-      document.querySelector("#toggleScreen").innerHTML = "&searr;";
-    } else {
-      document.querySelector("#toggleScreen").innerHTML = "&nwarr;";
-    }
   });
 
   for (let i = 0; i < 100; i++) {

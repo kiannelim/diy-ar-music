@@ -18,7 +18,7 @@ body {
 
 #detectionDiv {
   position: absolute;
-  top: -110vh;
+  top: 0;
   left: -110vw;
   transition: all 500ms ease-in-out;
 }
@@ -50,7 +50,7 @@ body {
   position: relative;
   float: left;
   clear: both;
-  margin: 1em 0 5em 0em;
+  margin: 1em 0 1em 0em;
   padding: 1em 1.5em 1em 1.5em;
   background: black;
   border-radius: 0 0.5em 0.5em 0;
@@ -82,7 +82,8 @@ body {
   z-index: 9999;
   color: white;
   font-size: 20px;
-  padding: 4px;
+  font-weight: 700;
+  padding: 6px;
   border-radius: 0 0 50px 0;
   box-sizing: border-box;
   cursor: pointer;
@@ -90,13 +91,5 @@ body {
 }
 
 #toggleScreen:hover, #toggleScreen:active {
-  padding: 10px;
-}
-
-#toggleScreen.active {
-  padding: 10px;
-}
-
-#toggleScreen.active:hover, #toggleScreen.active:active {
-  padding: 4px;
+  padding: 6px 0 0 0;
 }
