@@ -104,8 +104,12 @@ beholder.update = function update(){
   requestAnimationFrame(this.update.bind(this));
 
   if (this.canvas.width !== this.video.videoWidth) {
-    this.canvas.width = this.video.videoWidth;
-    this.canvas.height = this.video.videoHeight;
+    
+    const windowWidth = window.innerWidth*0.8;
+    let canvasWidth = this.video.videoWidth < windowWidth ? this.video.videoWidth : windowWidth;
+    
+    this.canvas.width = canvasWidth;
+    this.canvas.height = canvasWidth / this.video.videoWidth * this.video.videoHeight;
   }
 
   if (this.video.readyState === this.video.HAVE_ENOUGH_DATA){
