@@ -11,7 +11,7 @@ function updateDetection() {
     const corners = m.corners;
     const dctx = beholder.ctx;
 
-    dctx.strokeStyle = "red";
+    dctx.strokeStyle = "#FF00AA";
     dctx.beginPath();
 
     corners.forEach((c, i) => {
@@ -24,11 +24,15 @@ function updateDetection() {
     dctx.closePath();
 
     // draw first corner
-    dctx.strokeStyle = "green";
+    dctx.strokeStyle = "blue";
     dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
 
-    dctx.strokeStyle = "yellow";
-    dctx.strokeRect(center.x - 2, center.y - 2, 4, 4);
+    dctx.strokeStyle = "#FF00AA";
+    dctx.strokeRect(center.x - 1, center.y - 1, 2, 2);
+    
+    dctx.font = "12px monospace";
+    dctx.fillStyle = "#FF00AA";
+    dctx.fillText(m.id, center.x + 5, center.y);
   });
 
   requestAnimationFrame(updateDetection);
