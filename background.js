@@ -1,3 +1,5 @@
+let appMode = false;
+
 const MARKER_TIMEOUT_DEFAULT = 50;
 const MARKER = [];
 
@@ -117,6 +119,20 @@ window.onload = function() {
   document.querySelector("#VIDEO_SIZE_INDEX").addEventListener("change", e => {
     console.log(e.target.value);
     beholder.setVideoSize(e.target.value);
+  });
+  
+  document.querySelector("#toggleScreen").addEventListener("click", e => {
+    
+    appMode = !appMode;
+    document.querySelector("#toggleScreen").classList.toggle("active");
+    document.querySelector("#app").classList.toggle("active");
+    document.querySelector("#detectionDiv").classList.toggle("active");
+    
+    if (!appMode) {
+      document.querySelector("#toggleScreen").innerHTML = "&searr;";
+    } else {
+      document.querySelector("#toggleScreen").innerHTML = "&nwarr;";
+    }
   });
 
   for (let i = 0; i < 100; i++) {

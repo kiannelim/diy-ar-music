@@ -18,6 +18,24 @@ body {
 
 #detectionDiv {
   position: absolute;
+  top: -100vh;
+  left: -100vw;
+  transition: all 500ms ease-in-out;
+}
+
+#detectionDiv.active {
+  top: 0;
+  left: 0;
+}
+
+#app {
+  position: absolute;
+  top: -100vh;
+  left: -100vw;
+  transition: all 500ms ease-in-out;
+}
+
+#app.active {
   top: 0;
   left: 0;
 }
@@ -73,4 +91,12 @@ body {
 
 #toggleScreen:hover, #toggleScreen:active {
   padding: 10px;
+}
+
+#toggleScreen.active {
+  padding: 10px;
+}
+
+#toggleScreen.active:hover, #toggleScreen.active:active {
+  padding: 4px;
 }
