@@ -53,3 +53,24 @@ body {
   font-weight: 600;
   color: white;
 }
+
+#toggleScreen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background: #000;
+  z-index: 9999;
+  color: white;
+  font-size: 20px;
+  padding: 4px;
+  border-radius: 0 0 50px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 100ms ease-in;
+}
+
+#toggleScreen:hover, #toggleScreen:active {
+  padding: 10px;
+}
