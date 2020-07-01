@@ -1,3 +1,23 @@
+const MARKER_TIMEOUT_DEFAULT = 50;
+const MARKER = [];
+
+class Marker {
+  constructor(ID) {
+    this.timeout = MARKER_TIMEOUT_DEFAULT;
+    this.timestamp = 0;
+    this.present = false;
+    
+    this.center = {x:0, y:0};
+    this.corners = [];
+    
+    this.id = ID;
+  }
+  
+  update(time) {
+    present = time - this.timestamp > this.timeout ? false : present;
+  }
+}
+
 function updateDetection() {
   // console.log('num markers: ', markers.length, deltaTime);
   const markers = beholder.detect();
@@ -83,6 +103,10 @@ window.onload = function() {
     console.log(e.target.value);
     beholder.setVideoSize(e.target.value);
   });
+  
+  for (let i=0; i<100; i++) {
+    MARKER.push(new Marker(i));
+  }
   
   updateDetection();
 }
