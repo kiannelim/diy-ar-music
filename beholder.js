@@ -33,8 +33,6 @@ beholder.init = function init(canvasId) {
   this.canvas = document.querySelector(canvasId);
   this.ctx = this.canvas.getContext('2d');
 
-  // fpsCounter = document.querySelector('#fps');
-
   if (navigator.mediaDevices === undefined) {
     console.error('Detection Error: Cannot Access Camera')
   }

@@ -1,11 +1,33 @@
 /* CSS files add styling rules to your content */
 
-body {
+*, html {
+  margin: 0;
+  padding: 0;
   font-family: helvetica, arial, sans-serif;
-  margin: 2em;
+  font-size: 14px;
+  color: black;
 }
 
-h1 {
-  font-style: italic;
-  color: #373fff;
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#detectionDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#detectionDiv #detection-canvas {
+  position: relative;
+  float: left;
+  clear: both;
+}
+
+#detectionDiv #parametersMenu {
+  position: relative;
+  float: left;
+  clear: both;
+  margin: 1em 0 0 1em;
 }
