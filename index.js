@@ -3,32 +3,32 @@ function update() {
   const markers = beholder.detect();
 
   // draw markers here
-  const ctx = beholder.ctx;
-  ctx.lineWidth = 3;
+  const dctx = beholder.ctx;
+  dctx.lineWidth = 3;
 
   markers.forEach((m) => {
     const center = m.center;
     const corners = m.corners;
-    const ctx = beholder.ctx;
+    const dctx = beholder.ctx;
 
-    ctx.strokeStyle = "red";
-    ctx.beginPath();
+    dctx.strokeStyle = "red";
+    dctx.beginPath();
 
     corners.forEach((c, i) => {
-      ctx.moveTo(c.x, c.y);
+      dctx.moveTo(c.x, c.y);
       c2 = corners[(i + 1) % corners.length];
-      ctx.lineTo(c2.x, c2.y);
+      dctx.lineTo(c2.x, c2.y);
     });
 
-    ctx.stroke();
-    ctx.closePath();
+    dctx.stroke();
+    dctx.closePath();
 
     // draw first corner
-    ctx.strokeStyle = "green";
-    ctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+    dctx.strokeStyle = "green";
+    dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
 
-    ctx.strokeStyle = "yellow";
-    ctx.strokeRect(center.x - 2, center.y - 2, 4, 4);
+    dctx.strokeStyle = "yellow";
+    dctx.strokeRect(center.x - 2, center.y - 2, 4, 4);
   });
 
   requestAnimationFrame(update);
