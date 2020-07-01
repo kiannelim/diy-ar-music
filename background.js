@@ -14,7 +14,7 @@ class Marker {
   }
   
   update(time) {
-    present = time - this.timestamp > this.timeout ? false : present;
+    this.present = time - this.timestamp > this.timeout ? false : this.present;
   }
 }
 
@@ -26,7 +26,16 @@ function updateDetection() {
   const dctx = beholder.ctx;
   dctx.lineWidth = 3;
 
+  const timenow = Date.now();
   markers.forEach((m) => {
+    
+    if (m.id < MARKER.length) {
+      MARKER[m.id].present = true;
+      MARKER[m.id].timestamp = timenow;
+      MARKER[m.id].center = m.center;
+      MARKER[m.id].corners = m.corners.map(c => c);
+    }
+    
     const center = m.center;
     const corners = m.corners;
     const dctx = beholder.ctx;
@@ -54,7 +63,9 @@ function updateDetection() {
     dctx.fillStyle = "#FF00AA";
     dctx.fillText(m.id, center.x + 5, center.y);
   });
-
+  
+  MARKER.forEach((m) => m.update(timenow));
+  
   requestAnimationFrame(updateDetection);
 }
 
