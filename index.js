@@ -55,7 +55,7 @@ window.onload = function() {
     beholder.setParam('SIZE_AFTER_PERSPECTIVE_REMOVAL', e.target.value)
   });
 
-  const cameraSelect = document.querySelector('#CAMERA_INDEX')
+  const cameraSelect = document.querySelector('#CAMERA_INDEX');
   beholder.getCameraFeeds().then((feeds) => {
     cameraSelect.innerHTML = '';
 
@@ -70,9 +70,14 @@ window.onload = function() {
     });
 
     cameraSelect.addEventListener('change', (e) => {
-      console.log(e.target.value)
+      console.log(e.target.value);
       beholder.setCamera(e.target.value);
     });
+  });
+  
+  document.querySelector('#VIDEO_SIZE_INDEX').addEventListener('change', (e) => {
+    console.log(e.target.value);
+    beholder.setVideoSize(e.target.value);
   });
   
   update();

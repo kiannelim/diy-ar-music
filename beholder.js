@@ -1,4 +1,9 @@
-const VIDEO_WIDTH = 720;
+const VIDEO_SIZE_OPTIONS = [
+  {width: {exact: 320}, height: {exact: 240}},  
+  {width: {exact: 640}, height: {exact: 480}},
+  {width: {exact: 1280}, height: {exact: 720}},
+  {width: {exact: 1920}, height: {exact: 1080}},
+];
 
 const CV = {};
 const AR = {};
@@ -46,6 +51,11 @@ beholder.setCamera = function setCamera(newID) {
   this.startCameraFeed();
 }
 
+beholder.setVideoSize = function setVideoSize(val) {
+  detectionParams.VIDEO_SIZE = VIDEO_SIZE_OPTIONS[val];
+  this.startCameraFeed();
+}
+
 // Returns a promise
 beholder.getCameraFeeds = function getCameraFeeds() {
   return navigator.mediaDevices.enumerateDevices();
@@ -68,7 +78,7 @@ beholder.startCameraFeed = function startCameraFeed() {
   }
   
   navigator.mediaDevices
-    .getUserMedia({ video: { width: detectionParams.VIDEO_SIZE.width, height: 540, deviceId: detectionParams.CAMERA_INFO } })
+    .getUserMedia({ video: { width: detectionParams.VIDEO_SIZE.width, height: detectionParams.VIDEO_SIZE.height, deviceId: detectionParams.CAMERA_INFO } })
     .then((stream) => {
       if ("srcObject" in this.video) {
         this.video.srcObject = stream;
