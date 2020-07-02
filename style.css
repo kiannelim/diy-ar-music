@@ -30,14 +30,13 @@ body {
 
 #app {
   position: absolute;
-  top: -100vh;
-  left: -100vw;
+  top: 0;
+  left: 0;
   transition: all 500ms ease-in-out;
 }
 
 #app.active {
-  top: 0;
-  left: 0;
+
 }
 
 #detectionDiv #detection-canvas {
