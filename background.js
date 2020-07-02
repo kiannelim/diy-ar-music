@@ -10,6 +10,10 @@ const getMarker = (id) => {
   return MARKER[id];
 };
 
+const getMarkerPair = (idA, idB) => {
+  return new MarkerPair(idA, idB, MARKER);
+};
+
 class Marker {
   constructor(ID) {
     this.timeout = MARKER_TIMEOUT_DEFAULT;
@@ -44,7 +48,17 @@ class MarkerPair {
   }
   
   get angleBetween() {
-    if (this.markerA)
+    if (this.markerA && this.markerB) {
+      return this.markerA.rotation - this.markerB.rotation;
+    }
+    return undefined;
+  }
+  
+  get distance() {
+    if (this.markerA && this.markerB) {
+      return vecMag(vecSub(this.markerA.center, this.markerB.center));
+    }
+    return undefined;
   }
 }
 
@@ -92,6 +106,8 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
+  
+  console.log(getMarkerPair(0, 1).angleBetween);
 
   requestAnimationFrame(updateDetection);
 }
