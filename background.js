@@ -3,6 +3,13 @@ let appMode = false;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
+const getMarker = (id) => {
+  if (id > MARKER.length) {
+    return undefined;
+  }
+  return MARKER[id];
+};
+
 class Marker {
   constructor(ID) {
     this.timeout = MARKER_TIMEOUT_DEFAULT;
@@ -28,6 +35,17 @@ class Marker {
     this.present = time - this.timestamp > this.timeout ? false : this.present;
   }
 
+}
+
+class MarkerPair {
+  constructor(idA, idB, markerArr) {
+    this.markerA = idA < markerArr.length ? markerArr[idA] : undefined;
+    this.markerB = idB < markerArr.length ? markerArr[idB] : undefined;
+  }
+  
+  get angleBetween() {
+    if (this.markerA)
+  }
 }
 
 function updateDetection() {
