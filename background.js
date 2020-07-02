@@ -1,5 +1,6 @@
 let appMode = false;
 
+const MARKER_COUNT = 100;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
@@ -106,8 +107,6 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
-  
-  console.log(getMarkerPair(0, 1).angleBetween);
 
   requestAnimationFrame(updateDetection);
 }
@@ -172,7 +171,7 @@ window.onload = function() {
     
   });
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < MARKER_COUNT; i++) {
     MARKER.push(new Marker(i));
   }
 
