@@ -1,6 +1,6 @@
 let appMode = false;
 
-const MARKER_TIMEOUT_DEFAULT = 50;
+const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
 class Marker {
@@ -21,16 +21,13 @@ class Marker {
     this.timestamp = timenow;
     this.center = m.center;
     this.corners = m.corners.map(c => c);
+    this.rotation = vecAngleBetween(vecSub(this.corners[0], this.corners[1]), {x:1, y:0});
   }
 
   updatePresence(time) {
     this.present = time - this.timestamp > this.timeout ? false : this.present;
   }
-  
-  updateRotation() {
-    this.rotation = vecAngleBetween(vecSub(this.corners[0], this.corners[1]), {x:0, y:0});
-    console.log(this.rotation);
-  }
+
 }
 
 function updateDetection() {
@@ -42,12 +39,10 @@ function updateDetection() {
   dctx.lineWidth = 3;
 
   const timenow = Date.now();
+  
   markers.forEach(m => {
     if (m.id < MARKER.length) {
-      MARKER[m.id].present = true;
-      MARKER[m.id].timestamp = timenow;
-      MARKER[m.id].center = m.center;
-      MARKER[m.id].corners = m.corners.map(c => c);
+      MARKER[m.id].updateMarker(m, timenow);
     }
 
     const center = m.center;
@@ -79,6 +74,7 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
+  console.log(MARKER[0].rotation);
 
   requestAnimationFrame(updateDetection);
 }
