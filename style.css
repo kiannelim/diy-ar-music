@@ -12,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   background: url(
-    data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKElEQVQYVzWKwREAMAyCzJBM6ZDpean8QAdYfWxrGiLAhUqOI2mzlAdrEg/+fYCNgQAAAABJRU5ErkJggg==
+    data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAALklEQVQYV03LwQkAQAwCQVOtNW21ORIIp8/BLaAVs61KHAA+Hky0z4RFST1J7gFz9hgtYH4SQAAAAABJRU5ErkJggg==
   ) repeat;
 }
 
@@ -43,6 +43,8 @@ body {
   position: relative;
   float: left;
   clear: both;
+  border-radius: 0 0 0.5em 0;
+  border-bottom: 3px solid #FFF;
 }
 
 #detectionDiv #parametersMenu {
