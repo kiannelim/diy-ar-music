@@ -74,7 +74,6 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
-  console.log(MARKER[0].rotation);
 
   requestAnimationFrame(updateDetection);
 }
