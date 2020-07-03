@@ -70,6 +70,50 @@ class MarkerPair {
       { x: -markerSize/2, y: markerSize/2 }
     ];
     
+    const matrixRect2Quad = calDistortionMatrices(
+      this.markerA.corners[0], this.markerA.corners[1], this.markerA.corners[2], this.markerA.corners[3],
+      physCorners[0], physCorners[1], physCorners[2], physCorners[3]
+    );
+    
+    const matrixQuad2Rect = math.inv(matrixRect2Quad);
+    const q2r = v => matrixTransform(matrixQuad2Rect, v);
+    
+    const centerA = q2r(this.markerA.center);
+    const centerB = q2r(this.markerB.center);
+    const cornerA0 = q2r(this.markerA.corners[0]);
+    const cornerA1 = q2r(this.markerA.corners[1]);
+    
+    const vecAB = vecSub(centerA, centerB);
+    const d = vecMag(vecAB);
+    const angle = vecAngleBetween(vecSub(cornerA0, cornerA1), vecAB);
+    
+    return {distance:d, heading:angle};
+  }
+  
+  getRelativeRotation(markerSize) {
+    const physCorners = [
+      { x: -markerSize/2, y: -markerSize/2 },
+      { x: markerSize/2, y: -markerSize/2 },
+      { x: markerSize/2, y: markerSize/2 },
+      { x: -markerSize/2, y: markerSize/2 }
+    ];
+    
+    const matrixRect2Quad = calDistortionMatrices(
+      this.markerA.corners[0], this.markerA.corners[1], this.markerA.corners[2], this.markerA.corners[3],
+      physCorners[0], physCorners[1], physCorners[2], physCorners[3]
+    );
+    
+    const matrixQuad2Rect = math.inv(matrixRect2Quad);
+    const q2r = v => matrixTransform(matrixQuad2Rect, v);
+    
+    const cornerA0 = q2r(this.markerA.corners[0]);
+    const cornerA1 = q2r(this.markerA.corners[1]);
+    const cornerB0 = q2r(this.markerB.corners[0]);
+    const cornerB1 = q2r(this.markerB.corners[1]);
+    
+    const angle = vecAngleBetween(vecSub(cornerA0, cornerA1), vecSub(cornerB0, cornerB1));
+    
+    return angle;
   }
 }
 
@@ -117,6 +161,10 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
+  
+  if (getMarker(0).present && getMarker(1).present) {
+    console.log(getMarkerPair(0, 1).getRelativePosition(28));
+  }
 
   requestAnimationFrame(updateDetection);
 }
@@ -271,7 +319,7 @@ function lineCP(p2, p0, p1) {
 ////////////////////
 
 function calDistortionMatrices(q1, q2, q3, q4, r1, r2, r3, r4) {
-  const matrixA = matrix(
+  const matrixA = math.matrix(
     [
       [ r1.x, r1.y, 1., 0., 0., 0., (-q1.x)*r1.x, (-q1.x)*r1.y ],
       [ 0., 0., 0., r1.x, r1.y, 1., (-q1.y)*r1.x, (-q1.y)*r1.y ],
@@ -284,7 +332,7 @@ function calDistortionMatrices(q1, q2, q3, q4, r1, r2, r3, r4) {
     ]
   );
   
-  const matrixB = matrix(
+  const matrixB = math.matrix(
     [
       [ q1.x ],
       [ q1.y ],
@@ -297,13 +345,13 @@ function calDistortionMatrices(q1, q2, q3, q4, r1, r2, r3, r4) {
     ]  
   );
 
-  const s = lusolve(matrixA, matrixB);
+  const s = math.lusolve(matrixA, matrixB);
 
-  return matrix(
+  return math.matrix(
     [
-      [ subset(s, index(0, 0)), subset(s, index(1, 0)), subset(s, index(2, 0)) ],
-      [ subset(s, index(3, 0)), subset(s, index(4, 0)), subset(s, index(5, 0)) ],
-      [ subset(s, index(6, 0)), subset(s, index(7, 0)), 1. ]
+      [ math.subset(s, math.index(0, 0)), math.subset(s, math.index(1, 0)), math.subset(s, math.index(2, 0)) ],
+      [ math.subset(s, math.index(3, 0)), math.subset(s, math.index(4, 0)), math.subset(s, math.index(5, 0)) ],
+      [ math.subset(s, math.index(6, 0)), math.subset(s, math.index(7, 0)), 1. ]
     ]
   );
 }
@@ -311,16 +359,16 @@ function calDistortionMatrices(q1, q2, q3, q4, r1, r2, r3, r4) {
 // transformation of v using matrix m
 // v = 2D vector of the format {x:X, y:Y}
 function matrixTransform(m, v) {
-  const matrixV = matrix([
+  const matrixV = math.matrix([
     [v.x],
     [v.y],
     [1.]
   ]);
 
-  const result = multiply(m, matrixV);
+  const result = math.multiply(m, matrixV);
 
   return {
-    x: subset(result, index(0, 0)) / subset(result, index(2, 0)),
-    y: subset(result, index(1, 0)) / subset(result, index(2, 0))
+    x: math.subset(result, index(0, 0)) / math.subset(result, index(2, 0)),
+    y: math.subset(result, index(1, 0)) / math.subset(result, index(2, 0))
   };
 }
