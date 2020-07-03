@@ -82,38 +82,16 @@ class MarkerPair {
     const centerB = q2r(this.markerB.center);
     const cornerA0 = q2r(this.markerA.corners[0]);
     const cornerA1 = q2r(this.markerA.corners[1]);
-    
-    const vecAB = vecSub(centerA, centerB);
-    const d = vecMag(vecAB);
-    const angle = vecAngleBetween(vecSub(cornerA0, cornerA1), vecAB);
-    
-    return {distance:d, heading:angle};
-  }
-  
-  getRelativeRotation(markerSize) {
-    const physCorners = [
-      { x: -markerSize/2, y: -markerSize/2 },
-      { x: markerSize/2, y: -markerSize/2 },
-      { x: markerSize/2, y: markerSize/2 },
-      { x: -markerSize/2, y: markerSize/2 }
-    ];
-    
-    const matrixRect2Quad = calDistortionMatrices(
-      this.markerA.corners[0], this.markerA.corners[1], this.markerA.corners[2], this.markerA.corners[3],
-      physCorners[0], physCorners[1], physCorners[2], physCorners[3]
-    );
-    
-    const matrixQuad2Rect = math.inv(matrixRect2Quad);
-    const q2r = v => matrixTransform(matrixQuad2Rect, v);
-    
-    const cornerA0 = q2r(this.markerA.corners[0]);
-    const cornerA1 = q2r(this.markerA.corners[1]);
     const cornerB0 = q2r(this.markerB.corners[0]);
     const cornerB1 = q2r(this.markerB.corners[1]);
     
-    const angle = vecAngleBetween(vecSub(cornerA0, cornerA1), vecSub(cornerB0, cornerB1));
+    const vecAB = vecSub(centerA, centerB);
+    const vecA01 = vecSub(cornerA0, cornerA1);
+    const d = vecMag(vecAB);
+    const head = vecAngleBetween(vecA01, vecAB);
+    const angle = vecAngleBetween(vecA01, vecSub(cornerB0, cornerB1));
     
-    return angle;
+    return {distance:d, heading:head, rotation:angle};
   }
 }
 
