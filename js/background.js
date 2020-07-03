@@ -163,7 +163,7 @@ function updateDetection() {
   MARKER.forEach(m => m.updatePresence(timenow));
   
   if (getMarker(0).present && getMarker(1).present) {
-    console.log(getMarkerPair(0, 1).getRelativePosition(28));
+    console.log(getMarkerPair(0, 1).getRelativeRotation(28));
   }
 
   requestAnimationFrame(updateDetection);
@@ -368,7 +368,7 @@ function matrixTransform(m, v) {
   const result = math.multiply(m, matrixV);
 
   return {
-    x: math.subset(result, index(0, 0)) / math.subset(result, index(2, 0)),
-    y: math.subset(result, index(1, 0)) / math.subset(result, index(2, 0))
+    x: math.subset(result, math.index(0, 0)) / math.subset(result, math.index(2, 0)),
+    y: math.subset(result, math.index(1, 0)) / math.subset(result, math.index(2, 0))
   };
 }
