@@ -11,3 +11,6 @@
 | `getMarker(ID).rotation` | returns Marker rotation in radians as a float between `-pi` to `pi.` |
 
 ### Marker Pairs
+| syntax | usage |
+| --- | --- |
+| `getMarkerPair(ID_A, ID_B)` | returns MarkerPair object with corresponding pair of IDs.<br>`ID_A` and `ID_B` should be an integer between `0` to `99`. |
