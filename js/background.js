@@ -253,3 +253,10 @@ function lineCP(p2, p0, p1) {
   return {x: CPx, y: CPy, t: t};
 }
 
+
+////////////////////
+//
+// Distortion methods
+//
+////////////////////
+
