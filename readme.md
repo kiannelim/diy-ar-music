@@ -10,6 +10,14 @@
 | `getMarker(ID).corners` | returns Marker corners as an array of 4 objects corresponding to the corners of the marker, starting with the top-left corner. Each corner in the form<br>`{ x: val, y: val }`.<br>Individual corners can be accessed via their index, e.g. `.corners[0]` |
 | `getMarker(ID).rotation` | returns Marker rotation in radians as a float between `-pi` to `pi`. |
 
+![Individual Marker](https://cdn.glitch.com/9fb46e27-9b47-4c7b-a442-945ba4cb4943%2Fmarker_individual.png?v=1594011247329)
+
+**Example Usage**
+
+    var demoMarker = getMarker(0);
+    `var demoCenter = demoMarker.center;`
+`var demoRotation = demoMarker.rotation;
+
 ### Marker Pairs
 | syntax | usage |
 | --- | --- |
