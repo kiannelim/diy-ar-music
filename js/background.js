@@ -4,10 +4,6 @@ const MARKER_COUNT = 100;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
-let marker0;
-let marker1;
-let markerPair;
-
 const getMarker = id => {
   if (id > MARKER.length) {
     return undefined;
@@ -107,7 +103,7 @@ class MarkerPair {
       return { distance: d, heading: head, rotation: angle };
     }
     
-    return { distance: undefined, heading: head, rotation: angle };
+    return { distance: undefined, heading: undefined, rotation: undefined };
   }
 }
 
@@ -155,8 +151,6 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
-
-  console.log(markerPair.getRelativePosition(38), markerPair.distance);
 
   requestAnimationFrame(updateDetection);
 }
@@ -222,8 +216,6 @@ window.onload = function() {
   for (let i = 0; i < MARKER_COUNT; i++) {
     MARKER.push(new Marker(i));
   }
-
-  markerPair = getMarkerPair(0, 1);
   
   updateDetection();
 };
