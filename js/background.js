@@ -4,6 +4,9 @@ const MARKER_COUNT = 100;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
+let marker0;
+let marker1;
+
 const getMarker = (id) => {
   if (id > MARKER.length) {
     return undefined;
@@ -38,6 +41,10 @@ class Marker {
 
   updatePresence(time) {
     this.present = time - this.timestamp > this.timeout ? false : this.present;
+  }
+  
+  get present() {
+    return this.present;
   }
 
 }
@@ -140,9 +147,7 @@ function updateDetection() {
 
   MARKER.forEach(m => m.updatePresence(timenow));
   
-  if (getMarker(0).present && getMarker(1).present) {
-    console.log(getMarkerPair(0, 1).getRelativeRotation(28));
-  }
+  console.log(marker0, marker1);
 
   requestAnimationFrame(updateDetection);
 }
@@ -210,10 +215,10 @@ window.onload = function() {
   for (let i = 0; i < MARKER_COUNT; i++) {
     MARKER.push(new Marker(i));
   }
-
+  marker0 = getMarker(0).present;
+  marker1 = getMarker(1).present;
   updateDetection();
 };
-
 
 
 ////////////////////

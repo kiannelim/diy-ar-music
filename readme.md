@@ -15,8 +15,13 @@
 **Example Usage**
 
     var demoMarker = getMarker(0);
-    `var demoCenter = demoMarker.center;`
-`var demoRotation = demoMarker.rotation;
+    
+    if( demoMarker.present ) {
+        var demoCenter = demoMarker.center;
+        var demoRotation = demoMarker.rotation;
+        
+        console.log(demoCenter.x, demoCenter.y, demoRotation);
+    }
 
 ### Marker Pairs
 | syntax | usage |
@@ -25,3 +30,12 @@
 | `getMarkerPair(ID_A, ID_B).distance` | returns distance in pixels between marker pair. |
 | `getMarkerPair(ID_A, ID_B).angleBetween` | returns angle between marker pair in radians as a float between `-pi` to `pi`. |
 | `getMarkerPair(ID_A, ID_B).getRelativePosition(size)` | returns estimate of real world position of marker B relative to marker A. `size` is the width of marker A.<br> This method returns an object with three properties: `distance`, `heading`, and `rotation` (see figure below). |
+
+![Marker Pair](https://cdn.glitch.com/9fb46e27-9b47-4c7b-a442-945ba4cb4943%2Fmarker_pair.png?v=1594011243767)
+
+**Example Usage**
+
+    var demoMarkerPair = getMarkerPair(0, 1);
+    var realWorldPosition = demoMarkerPair.getRelativePosition(25);
+    
+    console.log(realWorldPosition.distance, realWorldPosition.heading, realWorldPosition.rotation);
