@@ -122,7 +122,7 @@ function updateDetection() {
       MARKER[m.id].updateMarker(m, timenow);
     }
 
-    if (document.querySelector("#detectionDiv").classList.contains("active")) {
+    if (!appMode) {
       const center = m.center;
       const corners = m.corners;
       const angle = MARKER[m.id].rotation;
@@ -149,9 +149,9 @@ function updateDetection() {
 
       dctx.font = "12px monospace";
       dctx.textAlign = "center";
-      dctx.fillStyle = "#FF00AA";
+      dctx.fillStyle = "#FF55AA";
       dctx.fillText(`ID=${m.id}`, center.x, center.y - 7);
-      dctx.fillText(angle.toFixed(2), center.x, center.y + 3);
+      dctx.fillText(angle.toFixed(2), center.x, center.y + 15);
     }
   });
 
@@ -214,7 +214,6 @@ window.onload = function() {
   document.querySelector("#toggleScreen").addEventListener("click", e => {
     appMode = !appMode;
     document.querySelector("#toggleScreen").classList.toggle("active");
-    document.querySelector("#app").classList.toggle("active");
     document.querySelector("#detectionDiv").classList.toggle("active");
   });
 

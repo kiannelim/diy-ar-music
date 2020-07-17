@@ -28,17 +28,6 @@ body {
   left: 0;
 }
 
-#app {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: all 500ms ease-in-out;
-}
-
-#app.active {
-
-}
-
 #detectionDiv #detection-canvas {
   position: relative;
   float: left;
@@ -93,4 +82,10 @@ body {
 
 #toggleScreen:hover, #toggleScreen:active {
   padding: 6px 0 0 0;
+}
+
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
