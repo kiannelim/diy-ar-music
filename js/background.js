@@ -102,7 +102,7 @@ class MarkerPair {
 
       return { distance: d, heading: head, rotation: angle };
     }
-    
+
     return { distance: undefined, heading: undefined, rotation: undefined };
   }
 }
@@ -122,32 +122,37 @@ function updateDetection() {
       MARKER[m.id].updateMarker(m, timenow);
     }
 
-    const center = m.center;
-    const corners = m.corners;
-    const dctx = beholder.ctx;
+    if (document.querySelector("#detectionDiv").classList.contains("active")) {
+      const center = m.center;
+      const corners = m.corners;
+      const angle = MARKER[m.id].rotation;
+      const dctx = beholder.ctx;
 
-    dctx.strokeStyle = "#FF00AA";
-    dctx.beginPath();
+      dctx.strokeStyle = "#FF00AA";
+      dctx.beginPath();
 
-    corners.forEach((c, i) => {
-      dctx.moveTo(c.x, c.y);
-      c2 = corners[(i + 1) % corners.length];
-      dctx.lineTo(c2.x, c2.y);
-    });
+      corners.forEach((c, i) => {
+        dctx.moveTo(c.x, c.y);
+        c2 = corners[(i + 1) % corners.length];
+        dctx.lineTo(c2.x, c2.y);
+      });
 
-    dctx.stroke();
-    dctx.closePath();
+      dctx.stroke();
+      dctx.closePath();
 
-    // draw first corner
-    dctx.strokeStyle = "blue";
-    dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+      // draw first corner
+      dctx.strokeStyle = "blue";
+      dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
 
-    dctx.strokeStyle = "#FF00AA";
-    dctx.strokeRect(center.x - 1, center.y - 1, 2, 2);
+      dctx.strokeStyle = "#FF00AA";
+      dctx.strokeRect(center.x - 1, center.y - 1, 2, 2);
 
-    dctx.font = "12px monospace";
-    dctx.fillStyle = "#FF00AA";
-    dctx.fillText(m.id, center.x + 5, center.y);
+      dctx.font = "12px monospace";
+      dctx.textAlign = "center";
+      dctx.fillStyle = "#FF00AA";
+      dctx.fillText(`ID=${m.id}`, center.x, center.y - 7);
+      dctx.fillText(angle.toFixed(2), center.x, center.y + 3);
+    }
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
@@ -216,7 +221,7 @@ window.onload = function() {
   for (let i = 0; i < MARKER_COUNT; i++) {
     MARKER.push(new Marker(i));
   }
-  
+
   updateDetection();
 };
 
