@@ -1,25 +1,28 @@
+// code written here will be executed once when the page loads
 function setup() {
-  
-  // code written here will be executed once when the page loads
-  
+  setupAppCanvas();
 }
 
+// code written here will be executed every frame
 function update() {
   
-  // code written here will be executed every frame
-  
 }
 
-
-
+// setupAppCanvas() function will initialize #app-canvas.
+// if you intend to use #app-canvas, call this function in setup()
 var canvas;
 var ctx;
 var appWidth;
 var appHeight;
 
 function setupAppCanvas() {
-  
-  this.canvas = document.querySelector(canvasId);
-  this.ctx = this.canvas.getContext('2d');
-  
+  canvas = document.querySelector("#app-canvas");
+  ctx = canvas.getContext("2d");
+
+  appWidth = window.innerWidth;
+  appHeight = window.innerHeight;
+  console.log(appWidth, appHeight);
+
+  canvas.width = appWidth;
+  canvas.height = appHeight;
 }
