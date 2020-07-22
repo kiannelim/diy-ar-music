@@ -84,8 +84,20 @@ body {
   padding: 6px 0 0 0;
 }
 
+
+
+/* styles for #app */
+
 #app {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+#app #app-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }

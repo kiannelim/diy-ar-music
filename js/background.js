@@ -156,6 +156,8 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
+  
+  update(); //defined in index.js
 
   requestAnimationFrame(updateDetection);
 }
@@ -220,6 +222,8 @@ window.onload = function() {
   for (let i = 0; i < MARKER_COUNT; i++) {
     MARKER.push(new Marker(i));
   }
+  
+  setup() //defined in index.js
 
   updateDetection();
 };
