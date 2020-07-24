@@ -4,17 +4,6 @@ const MARKER_COUNT = 100;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
-const getMarker = id => {
-  if (id > MARKER.length) {
-    return undefined;
-  }
-  return MARKER[id];
-};
-
-const getMarkerPair = (idA, idB) => {
-  return new MarkerPair(idA, idB, MARKER);
-};
-
 class Marker {
   constructor(ID) {
     this.timeout = MARKER_TIMEOUT_DEFAULT;
@@ -107,6 +96,21 @@ class MarkerPair {
   }
 }
 
+const getMarker = id => {
+  if (id > MARKER.length) {
+    return undefined;
+  }
+  return MARKER[id];
+};
+
+const getMarkerPair = (idA, idB) => {
+  return new MarkerPair(idA, idB, MARKER);
+};
+
+for (let i = 0; i < MARKER_COUNT; i++) {
+  MARKER.push(new Marker(i));
+}
+
 function updateDetection() {
   // console.log('num markers: ', markers.length, deltaTime);
   const markers = beholder.detect();
@@ -156,7 +160,7 @@ function updateDetection() {
   });
 
   MARKER.forEach(m => m.updatePresence(timenow));
-  
+
   update(); //defined in index.js
 
   requestAnimationFrame(updateDetection);
@@ -219,11 +223,7 @@ window.onload = function() {
     document.querySelector("#detectionDiv").classList.toggle("active");
   });
 
-  for (let i = 0; i < MARKER_COUNT; i++) {
-    MARKER.push(new Marker(i));
-  }
-  
-  setup() //defined in index.js
+  setup(); //defined in index.js
 
   updateDetection();
 };

@@ -1,11 +1,12 @@
 // code written here will be executed once when the page loads
 function setup() {
   setupAppCanvas();
+  
 }
 
 // code written here will be executed every frame
 function update() {
-  
+
 }
 
 // setupAppCanvas() function will initialize #app-canvas.
