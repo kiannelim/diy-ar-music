@@ -1,10 +1,10 @@
-// code written here will be executed once when the page loads
+// code written in here will be executed once when the page loads
 function setup() {
   setupAppCanvas();
   
 }
 
-// code written here will be executed every frame
+// code written in here will be executed every frame
 function update() {
 
 }
@@ -22,7 +22,7 @@ function setupAppCanvas() {
 
   appWidth = window.innerWidth;
   appHeight = window.innerHeight;
-  console.log(appWidth, appHeight);
+  console.log("appWidth =", appWidth, " appHeight =", appHeight);
 
   canvas.width = appWidth;
   canvas.height = appHeight;
