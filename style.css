@@ -21,6 +21,7 @@ body {
   top: 0;
   left: -110vw;
   transition: all 500ms ease-in-out;
+  z-index: 999;
 }
 
 #detectionDiv.active {
@@ -92,6 +93,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
 }
 
 #app #app-canvas {
