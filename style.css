@@ -30,11 +30,18 @@ body {
 }
 
 #detectionDiv #detection-canvas {
-  position: relative;
-  float: left;
-  clear: both;
+  position: absolute;
+  top: 0;
+  left: 0;
   border-radius: 0 0 0.5em 0;
   border-bottom: 4px solid #FFF;
+}
+
+#detectionDiv #detection-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 0.5em 0;
 }
 
 #detectionDiv #parametersMenu {

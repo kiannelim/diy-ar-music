@@ -116,7 +116,7 @@ function updateDetection() {
   const markers = beholder.detect();
 
   // draw markers here
-  const dctx = beholder.ctx;
+  const dctx = beholder.ctxOverlay;
   dctx.lineWidth = 3;
 
   const timenow = Date.now();
@@ -130,8 +130,8 @@ function updateDetection() {
       const center = m.center;
       const corners = m.corners;
       const angle = MARKER[m.id].rotation;
-      const dctx = beholder.ctx;
-
+      
+      dctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       dctx.strokeStyle = "#FF00AA";
       dctx.beginPath();
 
@@ -168,7 +168,7 @@ function updateDetection() {
 
 window.onload = function() {
   // initialize detection stuff and hack in to detection loop
-  beholder.init("#detection-canvas");
+  beholder.init("#detection-canvas", "#detection-canvas-overlay");
 
   // Detection param field changes
   document

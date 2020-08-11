@@ -24,7 +24,7 @@ beholder.setParam = function setParam(key, val) {
 };
 
 // Currently injects a video element to host the stream
-beholder.init = function init(canvasId) {
+beholder.init = function init(canvasId, canvasOverlayId) {
   this.video = document.createElement("video");
   this.video.id = "beholder-video";
   this.video.autoplay = "true";
@@ -34,6 +34,8 @@ beholder.init = function init(canvasId) {
   document.body.appendChild(this.video);
   this.canvas = document.querySelector(canvasId);
   this.ctx = this.canvas.getContext("2d");
+  this.canvasOverlay = document.querySelector(canvasOverlayId);
+  this.ctxOverlay = this.canvasOverlay.getContext("2d");
 
   if (navigator.mediaDevices === undefined) {
     console.error("Detection Error: Cannot Access Camera");
@@ -117,6 +119,8 @@ beholder.update = function update() {
   if (this.canvas.width !== this.video.videoWidth) {
     this.canvas.width = this.video.videoWidth;
     this.canvas.height = this.video.videoHeight;
+    this.canvasOverlay.width = this.video.videoWidth;
+    this.canvasOverlay.height = this.video.videoHeight;
   }
 
   if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
@@ -141,6 +145,8 @@ beholder.detect = function() {
   if (this.canvas.width !== this.video.videoWidth) {
     this.canvas.width = this.video.videoWidth;
     this.canvas.height = this.video.videoHeight;
+    this.canvasOverlay.width = this.video.videoWidth;
+    this.canvasOverlay.height = this.video.videoHeight;
   }
 
   if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
