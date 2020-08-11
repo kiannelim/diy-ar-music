@@ -117,6 +117,7 @@ function updateDetection() {
 
   // draw markers here
   const dctx = beholder.ctxOverlay;
+  dctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   dctx.lineWidth = 3;
 
   const timenow = Date.now();
@@ -131,7 +132,6 @@ function updateDetection() {
       const corners = m.corners;
       const angle = MARKER[m.id].rotation;
       
-      dctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       dctx.strokeStyle = "#FF00AA";
       dctx.beginPath();
 
@@ -200,6 +200,11 @@ window.onload = function() {
     .querySelector("#IMAGE_CONTRAST")
     .addEventListener("change", e => {
       beholder.setParam("IMAGE_CONTRAST", e.target.value);
+    });
+  document
+    .querySelector("#IMAGE_GRAYSCALE")
+    .addEventListener("change", e => {
+      beholder.setParam("IMAGE_GRAYSCALE", e.target.value);
     });
 
   const cameraSelect = document.querySelector("#CAMERA_INDEX");

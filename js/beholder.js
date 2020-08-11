@@ -17,6 +17,7 @@ let detectionParams = {
   SIZE_AFTER_PERSPECTIVE_REMOVAL: 49,
   IMAGE_CONTRAST: 0,
   IMAGE_BRIGHTNESS: 0,
+  IMAGE_GRAYSCALE: 0,
 };
 
 beholder.setParam = function setParam(key, val) {
@@ -155,8 +156,9 @@ beholder.detect = function() {
     
     const bri = (100 + Math.floor(detectionParams.IMAGE_BRIGHTNESS))/100;
     const contr = (100 + Math.floor(detectionParams.IMAGE_CONTRAST))/100;
+    const gray = Math.floor(detectionParams.IMAGE_GRAYSCALE)/100;
     
-    this.ctx.filter = `brightness(${bri}) contrast(${contr})`;
+    this.ctx.filter = `brightness(${bri}) contrast(${contr}) grayscale(${gray})`;
     // this.ctx.filter = `grayscale(${detectionParams.IMAGE_GRAYSCALE}%)`;
     
     imageData = this.ctx.getImageData(
