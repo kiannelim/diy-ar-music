@@ -137,20 +137,6 @@ beholder.update = function update() {
   }
 };
 
-function contrastImage(imgData, contrast) {
-  //input range [-100..100]
-  var d = imgData.data;
-  contrast = contrast / 100 + 1; //convert to decimal & shift range: [0..2]
-  var intercept = 128 * (1 - contrast);
-  for (var i = 0; i < d.length; i += 4) {
-    //r,g,b,a
-    d[i] = d[i] * contrast + intercept;
-    d[i + 1] = d[i + 1] * contrast + intercept;
-    d[i + 2] = d[i + 2] * contrast + intercept;
-  }
-  return imgData;
-}
-
 beholder.detect = function() {
   if (this.canvas.width !== this.video.videoWidth) {
     this.canvas.width = this.video.videoWidth;
@@ -160,16 +146,20 @@ beholder.detect = function() {
   if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
     // Render video frame
     this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-    const bri = 100 + Math.floor(detectionParams.IMAGE_BRIGHTNESS);
-    this.ctx.filter = `brightness(${bri}%)`
+    
+    const bri = (100 + Math.floor(detectionParams.IMAGE_BRIGHTNESS))/100;
+    const contr = (100 + Math.floor(detectionParams.IMAGE_CONTRAST))/100;
+    
+    this.ctx.filter = `brightness(${bri}) contrast(${contr})`;
+    // this.ctx.filter = `grayscale(${detectionParams.IMAGE_GRAYSCALE}%)`;
+    
     imageData = this.ctx.getImageData(
       0,
       0,
       this.canvas.width,
       this.canvas.height
     );
-    imageData = contrastImage(imageData, detectionParams.IMAGE_CONTRAST);
-    this.ctx.putImageData(imageData, 0, 0);
+
     var markers = this.detector.detect(imageData);
 
     return markers;
