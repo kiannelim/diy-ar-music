@@ -191,6 +191,16 @@ window.onload = function() {
     .addEventListener("change", e => {
       beholder.setParam("SIZE_AFTER_PERSPECTIVE_REMOVAL", e.target.value);
     });
+  document
+    .querySelector("#IMAGE_BRIGHTNESS")
+    .addEventListener("change", e => {
+      beholder.setParam("IMAGE_BRIGHTNESS", e.target.value);
+    });
+  document
+    .querySelector("#IMAGE_CONTRAST")
+    .addEventListener("change", e => {
+      beholder.setParam("IMAGE_CONTRAST", e.target.value);
+    });
 
   const cameraSelect = document.querySelector("#CAMERA_INDEX");
   beholder.getCameraFeeds().then(feeds => {
