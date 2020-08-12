@@ -17,7 +17,7 @@ let detectionParams = {
   SIZE_AFTER_PERSPECTIVE_REMOVAL: 49,
   IMAGE_CONTRAST: 0,
   IMAGE_BRIGHTNESS: 0,
-  IMAGE_GRAYSCALE: 0,
+  IMAGE_GRAYSCALE: 0
 };
 
 beholder.setParam = function setParam(key, val) {
@@ -142,6 +142,28 @@ beholder.update = function update() {
   }
 };
 
+beholder.filterImage = function() {
+  const bri = (100 + Math.floor(detectionParams.IMAGE_BRIGHTNESS)) / 100;
+  const contr = (100 + Math.floor(detectionParams.IMAGE_CONTRAST)) / 100;
+  const gray = Math.floor(detectionParams.IMAGE_GRAYSCALE) / 100;
+  
+  if (bri + contr + gray == 0) {
+    this.ctx.filter = 'none';  
+  } else {
+    let filterString = '';
+    if (bri != 0) {
+      filterString += `brightness(${bri}) `; 
+    }
+    if (contr != 0) {
+      filterString += `contrast(${contr}) `;
+    }
+    if (gray != 0) {
+      filterString += `grayscale(${gray})`;
+    }
+    this.ctx.filter = filterString;
+  }
+};
+
 beholder.detect = function() {
   if (this.canvas.width !== this.video.videoWidth) {
     this.canvas.width = this.video.videoWidth;
@@ -153,14 +175,7 @@ beholder.detect = function() {
   if (this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
     // Render video frame
     this.ctx.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
-    
-    const bri = (100 + Math.floor(detectionParams.IMAGE_BRIGHTNESS))/100;
-    const contr = (100 + Math.floor(detectionParams.IMAGE_CONTRAST))/100;
-    const gray = Math.floor(detectionParams.IMAGE_GRAYSCALE)/100;
-    
-    this.ctx.filter = `brightness(${bri}) contrast(${contr}) grayscale(${gray})`;
-    // this.ctx.filter = `grayscale(${detectionParams.IMAGE_GRAYSCALE}%)`;
-    
+
     imageData = this.ctx.getImageData(
       0,
       0,

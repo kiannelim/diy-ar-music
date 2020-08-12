@@ -131,7 +131,7 @@ function updateDetection() {
       const center = m.center;
       const corners = m.corners;
       const angle = MARKER[m.id].rotation;
-      
+
       dctx.strokeStyle = "#FF00AA";
       dctx.beginPath();
 
@@ -191,21 +191,18 @@ window.onload = function() {
     .addEventListener("change", e => {
       beholder.setParam("SIZE_AFTER_PERSPECTIVE_REMOVAL", e.target.value);
     });
-  document
-    .querySelector("#IMAGE_BRIGHTNESS")
-    .addEventListener("change", e => {
-      beholder.setParam("IMAGE_BRIGHTNESS", e.target.value);
-    });
-  document
-    .querySelector("#IMAGE_CONTRAST")
-    .addEventListener("change", e => {
-      beholder.setParam("IMAGE_CONTRAST", e.target.value);
-    });
-  document
-    .querySelector("#IMAGE_GRAYSCALE")
-    .addEventListener("change", e => {
-      beholder.setParam("IMAGE_GRAYSCALE", e.target.value);
-    });
+  document.querySelector("#IMAGE_BRIGHTNESS").addEventListener("change", e => {
+    beholder.setParam("IMAGE_BRIGHTNESS", e.target.value);
+    beholder.filterImage();
+  });
+  document.querySelector("#IMAGE_CONTRAST").addEventListener("change", e => {
+    beholder.setParam("IMAGE_CONTRAST", e.target.value);
+    beholder.filterImage();
+  });
+  document.querySelector("#IMAGE_GRAYSCALE").addEventListener("change", e => {
+    beholder.setParam("IMAGE_GRAYSCALE", e.target.value);
+    beholder.filterImage();
+  });
 
   const cameraSelect = document.querySelector("#CAMERA_INDEX");
   beholder.getCameraFeeds().then(feeds => {
