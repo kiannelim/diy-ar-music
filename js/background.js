@@ -1,6 +1,6 @@
 let appMode = false;
 
-const MARKER_COUNT = 100;
+const MARKER_COUNT = 1000;
 const MARKER_TIMEOUT_DEFAULT = 75;
 const MARKER = [];
 
