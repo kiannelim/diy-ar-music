@@ -125,37 +125,37 @@ function updateDetection() {
   markers.forEach(m => {
     if (m.id < MARKER.length) {
       MARKER[m.id].updateMarker(m, timenow);
-    }
 
-    if (!appMode) {
-      const center = m.center;
-      const corners = m.corners;
-      const angle = MARKER[m.id].rotation;
+      if (!appMode) {
+        const center = m.center;
+        const corners = m.corners;
+        const angle = MARKER[m.id].rotation;
 
-      dctx.strokeStyle = "#FF00AA";
-      dctx.beginPath();
+        dctx.strokeStyle = "#FF00AA";
+        dctx.beginPath();
 
-      corners.forEach((c, i) => {
-        dctx.moveTo(c.x, c.y);
-        c2 = corners[(i + 1) % corners.length];
-        dctx.lineTo(c2.x, c2.y);
-      });
+        corners.forEach((c, i) => {
+          dctx.moveTo(c.x, c.y);
+          var c2 = corners[(i + 1) % corners.length];
+          dctx.lineTo(c2.x, c2.y);
+        });
 
-      dctx.stroke();
-      dctx.closePath();
+        dctx.stroke();
+        dctx.closePath();
 
-      // draw first corner
-      dctx.strokeStyle = "blue";
-      dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
+        // draw first corner
+        dctx.strokeStyle = "blue";
+        dctx.strokeRect(corners[0].x - 2, corners[0].y - 2, 4, 4);
 
-      dctx.strokeStyle = "#FF00AA";
-      dctx.strokeRect(center.x - 1, center.y - 1, 2, 2);
+        dctx.strokeStyle = "#FF00AA";
+        dctx.strokeRect(center.x - 1, center.y - 1, 2, 2);
 
-      dctx.font = "12px monospace";
-      dctx.textAlign = "center";
-      dctx.fillStyle = "#FF55AA";
-      dctx.fillText(`ID=${m.id}`, center.x, center.y - 7);
-      dctx.fillText(angle.toFixed(2), center.x, center.y + 15);
+        dctx.font = "12px monospace";
+        dctx.textAlign = "center";
+        dctx.fillStyle = "#FF55AA";
+        dctx.fillText(`ID=${m.id}`, center.x, center.y - 7);
+        dctx.fillText(angle.toFixed(2), center.x, center.y + 15);
+      }
     }
   });
 
