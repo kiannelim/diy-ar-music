@@ -8,6 +8,7 @@ function setup() {
 
 function update() {
   // code written in here will be executed every frame
+  console.log(getMarkerPair(0, 3).angleBetween);
 }
 
 // setupAppCanvas() function will initialize #app-canvas.

@@ -40,7 +40,12 @@ class MarkerPair {
 
   get angleBetween() {
     if (this.markerA && this.markerB) {
-      return this.markerA.rotation - this.markerB.rotation;
+      if (this.markerA.corners.length > 0 && this.markerB.corners.length > 0) {
+        return vecAngleBetween(
+          vecSub(this.markerA.corners[0], this.markerA.corners[1]),
+          vecSub(this.markerB.corners[0], this.markerB.corners[1])
+        );
+      }
     }
     return undefined;
   }
