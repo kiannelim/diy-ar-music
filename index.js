@@ -5,10 +5,19 @@ function setup() {
   setupAppCanvas();
 }
 
+var timestamp = 0;
+var timeInterval = 1000; // in milliseconds
 
 function update() {
   // code written in here will be executed every frame
-  console.log(getMarkerPair(0, 3).angleBetween);
+  
+  var timeNow = Date.now();
+  if (timeNow - timestamp > timeInterval) {
+    // Do something here
+    
+    timestamp = timeNow; //end with setting the timestamp to the current time
+  }
+  
 }
 
 // setupAppCanvas() function will initialize #app-canvas.
