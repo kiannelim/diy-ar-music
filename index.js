@@ -1,5 +1,7 @@
 // declare global variables up here
 
+var marker22;
+
 function setup() {
   // code written in here will be executed once when the page loads
   setupAppCanvas();
