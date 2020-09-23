@@ -2,6 +2,15 @@
 
 var marker22;
 
+var marker0;
+var marker1;
+var marker2;
+var marker3;
+var marker4;
+var marker5;
+var marker6;
+var marker7;
+
 function setup() {
   // code written in here will be executed once when the page loads
   setupAppCanvas();
